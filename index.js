@@ -1,6 +1,6 @@
-import http from 'http';
-import fs from 'fs';
-import url from 'url';
+/* const http = require('http');
+const fs = require('fs');
+const url = require('url');
 
 const error404 = fs.readFileSync('404.html', 'utf-8', (err, data) => {
   if (err) throw err;
@@ -30,3 +30,20 @@ http
     });
   })
   .listen(8080);
+ */
+
+const express = require('express');
+const app = express();
+const port = 3000;
+const path = require('path');
+
+app.use(express.static('public'));
+
+app.use((req, res) => {
+  res.status(404);
+  res.sendFile(path.join(__dirname, 'public/404.html'));
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
